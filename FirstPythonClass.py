@@ -1,18 +1,18 @@
 import random
 
 
-def rpc_check(player, comp):
+def rps_check(player, comp):
 
     if player == "rock" and comp == "scissors":
-        print("You win!")
+        return "You win!"
     elif player == "paper" and comp == "rock":
-        print("You win!")
+        return "You win!"
     elif player == "scissors" and comp == "paper":
-        print("You win!")
+        return "You win!"
     elif player == comp:
-        print("Tie!")
+        return "Tie!"
     else:
-        print("The computer wins!")
+        return "The computer wins!"
 
 
 def comp_choice():
@@ -27,9 +27,14 @@ def comp_choice():
         return "scissors"
 
 
+player_wins = 0
+comp_wins = 0
+total_games = 0
+
+
 while True:
 
-    player_input = input("Please type rock, paper, or scissors:\n")
+    player_input = (input("Please type rock, paper, or scissors:\n")).lower()
     flag = True
 
     while flag:
@@ -42,13 +47,23 @@ while True:
         else:
             player_input = input("Please enter a valid input:\n")
 
-        comp_input = comp_choice()
-        print("The computer chose " + str(comp_input) + "!")
-        rpc_check(player_input, comp_input)
+    comp_input = comp_choice()
+    print("The computer chose " + str(comp_input) + "!")
+    print(rps_check(player_input, comp_input))
 
+    if str(rps_check(player_input, comp_input)) == "You win!":
+        player_wins += 1
+        total_games += 1
+    elif str(rps_check(player_input, comp_input)) == "The computer wins!":
+        comp_wins += 1
+        total_games += 1
+    else:
+        total_games += 1
+
+    print("You won " + str(player_wins) + " game(s) out of " + str(total_games) + ".\n")
     flag = True
     print("Would you like to play again?")
-    player_input = input("yes or no:\n")
+    player_input = (input("yes or no:\n")).lower()
 
     while flag:
         if player_input == "yes":
